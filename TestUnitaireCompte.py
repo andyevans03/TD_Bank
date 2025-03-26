@@ -19,7 +19,7 @@ class TestUnitaireCompte(unittest.TestCase):
 
     def test_retirer_invalide(self):
         with self.assertRaises(ValueError):
-            self.compte1.retirer(105)  # Retrait invalide (pas une somme ronde)
+            self.compte1.retirer(105) 
         
         with self.assertRaises(ValueError):
             self.compte1.retirer(3000)  
@@ -29,3 +29,14 @@ class TestUnitaireCompte(unittest.TestCase):
         self.compte1.transferer(100, self.compte2)
         self.assertEqual(self.compte1.solde, 1900)
         self.assertEqual(self.compte2.solde, 1100)
+
+    
+    def test_is_valid(self):
+        
+        self.compte1.deposer(500)
+        self.compte1.retirer(100)
+        self.assertTrue(self.compte1.is_valid())
+        
+    
+        self.compte1.solde = 400
+        self.assertFalse(self.compte1.is_valid())

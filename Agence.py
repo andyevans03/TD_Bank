@@ -17,4 +17,9 @@ class Agence:
         return comptes_uniques and proprietaires_uniques and comptes_valides
     
     def transaction_at_date(self, date):
-        return [t for t in self.transactions if t.date == date]
+        transactions = []
+        for compte in self.comptes:
+            for transaction in compte.transactions:
+                if transaction.date.date() == date.date():  
+                    transactions.append(transaction)
+        return transactions
