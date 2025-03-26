@@ -24,15 +24,15 @@ class Compte:
         self.solde -= transaction.montant
         self.transactions.append(transaction)
 
-    def transferer(self, montant, compte_dest):
+    def transferer(self, montant, compte_dest_id):
         # Crée une transaction de transfert
-        transaction = Transaction(montant, datetime.now(), "transfert", self.identifiant, compte_dest.identifiant)
+        transaction = Transaction(montant, datetime.now(), "transfert", self.identifiant, compte_dest_id)
         if transaction.montant > self.solde:
             raise ValueError("Fonds insuffisants pour le transfert.")
         self.solde -= transaction.montant
-        compte_dest.solde += transaction.montant
+        compte_dest_id.solde += transaction.montant
         self.transactions.append(transaction)
-        compte_dest.transactions.append(transaction)
+        compte_dest_id.transactions.append(transaction)
 
     def resume_transactions(self):
         return self.transactions[-10:]
